@@ -71,13 +71,9 @@ const Sidebar = () => {
         />
         <MenuList className="pt-3 px-3" style={{ width: "100%" }}>
           {menuItems.map((menuItem) => (
-            <>
+            <React.Fragment key={menuItem.link}>
               {menuItem.divider && <Divider className="my-2" />}
-              <Link
-                key={menuItem.link}
-                to={menuItem.link}
-                className="text-decoration-none"
-              >
+              <Link to={menuItem.link} className="text-decoration-none">
                 <MenuItem
                   className={`menu-item mt-1 ${
                     path === menuItem.link ? "active" : ""
@@ -87,7 +83,7 @@ const Sidebar = () => {
                   <span className="fw-normal h6 ms-2">{menuItem.title}</span>
                 </MenuItem>
               </Link>
-            </>
+            </React.Fragment>
           ))}
         </MenuList>
       </div>

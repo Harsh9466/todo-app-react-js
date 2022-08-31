@@ -15,7 +15,13 @@ const NoTasks = (props) => {
     <>
       <div className="no-task-container text-center d-flex flex-column justify-content-center align-items-center  w-100">
         <div className="m-0 no-task p-0">
-          <Lottie options={defaultOptions} height={200} width={200} />
+          <Lottie
+            style={{ cursor: "default", userSelect: "none" }}
+            options={defaultOptions}
+            isClickToPauseDisabled
+            height={200}
+            width={200}
+          />
           <h6>{props?.title || "Add your Tasks"}</h6>
         </div>
       </div>
