@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Input, ToggleButton } from "@fluentui/react-components";
 import { Add20Regular } from "@fluentui/react-icons";
+import { DateFormattor } from "../helpers/utils";
 
 const Content = (props) => {
   const [inputValue, setInputValue] = useState("");
@@ -23,7 +24,9 @@ const Content = (props) => {
               {props?.icon && React.cloneElement(props?.icon, {})}
               {props.title || ""}
             </h3>
-            {props.date && <p className="p-0 ms-4 ps-3">Sunday, August 28</p>}
+            {props.date && (
+              <p className="p-0 ms-4 ps-3">{DateFormattor(new Date())}</p>
+            )}
           </div>
           {props?.customizeTheme && (
             <ToggleButton

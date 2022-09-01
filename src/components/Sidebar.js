@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   makeStyles,
   tokens,
@@ -14,7 +14,8 @@ import {
   Search16Regular,
   CalendarCheckmark24Regular,
 } from "@fluentui/react-icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 const useStyles = makeStyles({
   container: {
@@ -57,17 +58,54 @@ const menuItems = [
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const searchInputRef = useRef(null);
   const styles = useStyles();
   const path = useMemo(() => location.pathname, [location]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    navigate(location.pathname);
+    setSearch("");
+  }, [navigate, location.pathname]);
+
+  const onEnter = (value) => {
+    onSearch(value);
+    searchInputRef.current.blur();
+  };
+
+  const onSearch = (value) => {
+    if (!value) {
+      navigate(location.pathname);
+      return;
+    }
+    navigate("?search=" + value.trim());
+  };
 
   return (
     <>
       <div className={styles.container}>
+        {/* {console.log(search)} */}
         <Input
-          contentAfter={<Search16Regular />}
+          type="search"
+          ref={searchInputRef}
+          contentAfter={!search && <Search16Regular />}
           className="mx-3 mt-3"
           style={{ width: "85%" }}
           placeholder="Search"
+          value={search}
+          disabled={location.pathname === "/completed"}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onEnter(e.target.value);
+            }
+          }}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            debounce(() => {
+              onSearch(e.target.value);
+            }, 800)();
+          }}
         />
         <MenuList className="pt-3 px-3" style={{ width: "100%" }}>
           {menuItems.map((menuItem) => (

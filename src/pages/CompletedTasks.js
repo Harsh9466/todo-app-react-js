@@ -34,6 +34,7 @@ const CompletedTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
         title="Completed Tasks"
         customizeTheme
         value={onEnterInput}
+        disableSearch
         icon={<CalendarCheckmark24Regular className="me-3" />}
       >
         {completedTasks && completedTasks.length > 0 ? (

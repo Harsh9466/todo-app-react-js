@@ -4,8 +4,11 @@ import Content from "../components/Content";
 import NoTasks from "../components/NoTasks";
 import TaskItem from "../components/TaskItem";
 import * as uuid from "uuid";
+import { useLocation } from "react-router-dom";
 
 const AllTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
+  const location = useLocation();
+  const searchTerm = new URLSearchParams(location.search).get("search");
   const [allTasks, setAllTasks] = useState([]);
 
   useEffect(() => {
@@ -14,6 +17,16 @@ const AllTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
       setAllTasks(savedTodayTasks);
     }
   }, [tasks]);
+
+  useEffect(() => {
+    let regex = "";
+    if (searchTerm) {
+      regex = new RegExp("(" + searchTerm + ")", "si");
+    }
+    setAllTasks(
+      tasks.filter((v) => v.isCompleted === false && v.title.match(regex))
+    );
+  }, [tasks, searchTerm]);
 
   const onEnterInput = (inputValue) => {
     const newTask = {
@@ -39,6 +52,7 @@ const AllTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
       {allTasks?.length > 0 ? (
         allTasks.map((task, id) => (
           <TaskItem
+            searchTerm={searchTerm}
             key={id}
             task={task}
             onImportant={(v) => onUpdateTask(task.id, v, "isImportant")}
@@ -46,7 +60,7 @@ const AllTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
           />
         ))
       ) : (
-        <NoTasks title="No tasks yet ☹️" />
+        <NoTasks title={!searchTerm ? "No tasks yet ☹️" : "Result not found"} />
       )}
     </Content>
   );

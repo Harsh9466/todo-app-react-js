@@ -4,8 +4,11 @@ import TaskItem from "../components/TaskItem";
 import NoTasks from "../components/NoTasks";
 import { WeatherSunny24Regular } from "@fluentui/react-icons";
 import * as uuid from "uuid";
+import { useLocation } from "react-router-dom";
 
 const TodayTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
+  const location = useLocation();
+  const searchTerm = new URLSearchParams(location.search).get("search");
   const [todayTasks, setTodayTasks] = useState([]);
 
   useEffect(() => {
@@ -20,6 +23,23 @@ const TodayTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
       setTodayTasks(savedTodayTasks);
     }
   }, [tasks]);
+
+  useEffect(() => {
+    let regex = "";
+    if (searchTerm) {
+      regex = new RegExp("(" + searchTerm + ")", "si");
+    }
+    setTodayTasks(
+      tasks.filter(
+        (v) =>
+          new Date(v.createdAt).toLocaleDateString() ===
+            new Date().toLocaleDateString() &&
+          v.addedFrom === "My Day" &&
+          v.isCompleted === false &&
+          v.title.match(regex)
+      )
+    );
+  }, [tasks, searchTerm]);
 
   const onEnterInput = (inputValue) => {
     const newTask = {
@@ -49,12 +69,15 @@ const TodayTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
             <TaskItem
               key={id}
               task={task}
+              searchTerm={searchTerm}
               onImportant={(v) => onUpdateTask(task.id, v, "isImportant")}
               onCompleted={(v) => onUpdateTask(task.id, v, "isCompleted")}
             />
           ))
         ) : (
-          <NoTasks title="Add Your Today Tasks 😄" />
+          <NoTasks
+            title={!searchTerm ? "Add Your Today Tasks 😄" : "Result not found"}
+          />
         )}
       </Content>
     </>
