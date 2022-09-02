@@ -78,7 +78,7 @@ const Content = (props) => {
         </div>
       )}
       <div
-        className={`task-body p-3 ${!props?.date ? "task-body-no-date" : ""}`}
+        className={`p-3 ${!props?.date ? "task-body-no-date" : "task-body"}`}
       >
         {props.children}
       </div>

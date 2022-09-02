@@ -116,8 +116,10 @@ body {
     padding-left: 1rem !important;
     padding-top: 0.5rem !important;
   }
-  .task-body {
-    height: auto;
+  .task-body.task-body-with-date {
+    min-height: calc(100vh - 160px);
+  }
+  .task-body.task-body-no-date {
     min-height: calc(100vh - 160px);
   }
   .task-footer {
