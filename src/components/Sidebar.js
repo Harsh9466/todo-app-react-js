@@ -13,6 +13,7 @@ import {
   WeatherSunny24Regular,
   Search16Regular,
   CalendarCheckmark24Regular,
+  // Settings24Regular,
 } from "@fluentui/react-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-const menuItems = [
+export const menuItems = [
   {
     title: "My Day",
     link: "/",
@@ -54,6 +55,12 @@ const menuItems = [
     divider: true,
     Icon: <CalendarCheckmark24Regular />,
   },
+  // {
+  //   title: "Settings",
+  //   link: "/settings",
+  //   divider: true,
+  //   Icon: <Settings24Regular />,
+  // },
 ];
 
 const Sidebar = () => {

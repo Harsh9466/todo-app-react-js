@@ -1,10 +1,26 @@
-import React, { useRef, useState } from "react";
-import { Input, ToggleButton } from "@fluentui/react-components";
-import { Add20Regular } from "@fluentui/react-icons";
+import React, { useMemo, useRef, useState } from "react";
+import {
+  Divider,
+  Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  MenuPopover,
+  MenuTrigger,
+} from "@fluentui/react-components";
+import {
+  Add20Regular,
+  TextBulletListLtr24Regular,
+} from "@fluentui/react-icons";
 import { DateFormattor } from "../helpers/utils";
+import { menuItems } from "./Sidebar";
+import { Link, useLocation } from "react-router-dom";
 
 const Content = (props) => {
+  const location = useLocation();
   const [inputValue, setInputValue] = useState("");
+  const path = useMemo(() => location.pathname, [location]);
   const inputRef = useRef(null);
   const onInputClick = () => {
     inputRef.current.focus();
@@ -28,15 +44,37 @@ const Content = (props) => {
               <p className="p-0 ms-4 ps-3">{DateFormattor(new Date())}</p>
             )}
           </div>
-          {props?.customizeTheme && (
-            <ToggleButton
-              appearance="transparent"
-              size="medium"
-              className="dot-button fw-bold"
-            >
-              ...
-            </ToggleButton>
-          )}
+          <div className="d-block d-md-none">
+            <Menu>
+              <MenuTrigger>
+                <MenuButton
+                  icon={<TextBulletListLtr24Regular />}
+                  appearance="transparent"
+                />
+              </MenuTrigger>
+              <MenuPopover>
+                <MenuList className="pt-3 px-3" style={{ width: "250px" }}>
+                  {menuItems.map((menuItem) => (
+                    <React.Fragment key={menuItem.link}>
+                      {menuItem.divider && <Divider className="my-2" />}
+                      <Link to={menuItem.link} className="text-decoration-none">
+                        <MenuItem
+                          className={`menu-item mt-1 ${
+                            path === menuItem.link ? "active" : ""
+                          }`}
+                        >
+                          {React.cloneElement(menuItem.Icon)}
+                          <span className="fw-normal h6 ms-2">
+                            {menuItem.title}
+                          </span>
+                        </MenuItem>
+                      </Link>
+                    </React.Fragment>
+                  ))}
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+          </div>
         </div>
       )}
       <div

@@ -72,6 +72,10 @@ body {
 .cursor-pointer {
   cursor: pointer !important;
 }
+.lottie {
+  width: 200px;
+  height: 200px;
+}
 
 /* Sidebar */
 
@@ -103,6 +107,40 @@ body {
 .task-input:focus-within {
   cursor: text;
   border-bottom-color: #d1d1d1 !important;
+}
+
+/* Media Query */
+@media only screen and (max-width: 768px) {
+  .task-header {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+  .task-body {
+    height: auto;
+    min-height: auto;
+  }
+  .task-footer {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+  .sidebar-wrapper {
+    display: none;
+    width: 0;
+  }
+  .task-wrapper {
+    width: 100%;
+  }
+  .no-task {
+    width: auto;
+  }
+  .lottie {
+    width: auto;
+    height: 170px;
+  }
+  .no-task > h6 {
+    /* margin-top: -20px; */
+    margin: -23px 10px 0 10px;
+  }
 }
 
 /* Scrollbar Configuration */

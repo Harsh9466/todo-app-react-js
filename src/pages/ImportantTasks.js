@@ -53,7 +53,6 @@ const ImportantTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
         header
         footer
         title="Important"
-        customizeTheme
         icon={<Star24Regular className="me-3" />}
         value={onEnterInput}
       >

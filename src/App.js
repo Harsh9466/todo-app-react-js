@@ -5,6 +5,7 @@ import TodayTasks from "./pages/TodayTasks";
 import ImportantTasks from "./pages/ImportantTasks";
 import AllTasks from "./pages/AllTasks";
 import CompletedTasks from "./pages/CompletedTasks";
+import Settings from "./pages/Settings";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -82,6 +83,7 @@ const App = () => {
                   />
                 }
               />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
         </div>

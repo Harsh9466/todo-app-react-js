@@ -32,7 +32,6 @@ const CompletedTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
       <Content
         header
         title="Completed Tasks"
-        customizeTheme
         value={onEnterInput}
         disableSearch
         icon={<CalendarCheckmark24Regular className="me-3" />}

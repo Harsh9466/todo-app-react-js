@@ -60,7 +60,6 @@ const TodayTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
         footer
         title="My Day"
         date
-        customizeTheme
         value={onEnterInput}
         icon={<WeatherSunny24Regular className="me-3" />}
       >

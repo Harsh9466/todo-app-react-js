@@ -45,7 +45,6 @@ const AllTasks = ({ tasks, onAddNewTask, onUpdateTask }) => {
       header
       footer
       title="Tasks"
-      customizeTheme
       value={onEnterInput}
       icon={<Home24Regular className="me-3" />}
     >
