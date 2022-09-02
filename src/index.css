@@ -114,14 +114,16 @@ body {
   .task-header {
     padding-right: 1rem !important;
     padding-left: 1rem !important;
+    padding-top: 0.5rem !important;
   }
   .task-body {
     height: auto;
-    min-height: auto;
+    min-height: calc(100vh - 160px);
   }
   .task-footer {
     padding-right: 1rem !important;
     padding-left: 1rem !important;
+    padding-bottom: 0.5rem !important;
   }
   .sidebar-wrapper {
     display: none;
